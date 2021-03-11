@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Crear Publicacion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item >
+    <ion-label position="floating">¿Que deseas publicar?</ion-label>
+    <ion-textarea (ionChange)="getText($event)" style="border: 5px;"></ion-textarea>
+
+    <div>
+      
+      <ion-buttons slot="start">
+        <ion-button (click)="publicarModal()" color="success"  >
+          <ion-icon name="checkmark-outline"></ion-icon>
+          Publicar 
+        </ion-button>
+  
+        <ion-button (click)="cancelarModal()" color="danger"  >
+          <ion-icon name="close-outline"></ion-icon>
+          Cancelar
+        </ion-button> 
+      </ion-buttons>
+   
+    </div>
+  </ion-item>
+</ion-content>

@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Blank
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-card>
+    <ion-card-content>
+      
+      <div>
+        <ion-button  (click)="crearPublicacion()">
+          Deseas Crear una publicacion?
+        </ion-button>
+      </div>
+
+      <div>
+        <ion-buttons slot="start">
+          <ion-button>
+            <ion-icon slot="start" name="add"></ion-icon>
+            Publicacion
+          </ion-button>
+          <ion-button>
+            Foto/Video
+          </ion-button>
+
+        </ion-buttons>
+      </div>
+    </ion-card-content>
+    
+  </ion-card>
+
+  <app-publicaciones [publicaciones]="publicacionService.publicaciones"></app-publicaciones>
+</ion-content>
