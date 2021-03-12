@@ -16,6 +16,7 @@ export class HomePage implements OnInit {
               public publicacionService: PublicacionesService) { }
 
   ngOnInit() {
+    
   }
 
 
@@ -27,10 +28,24 @@ export class HomePage implements OnInit {
 
     const {data} = await modal.onDidDismiss();
 
-    this.publicacionService.guardarPublicacion(data).subscribe(result =>{
+    this.publicacionService.insertPublicaciones(data).subscribe(result =>{
       console.log(result);
     });
   }
+
+  async crearPublicacionWithImagen(){
+    const modal = await this.modalController.create({
+      component: ModalPublicacionPage,
+      componentProps: {
+        image: true
+      }
+    });
+    await modal.present();
+
+    const {data} = await modal.onDidDismiss();
+  }
+
+ 
 
   
 

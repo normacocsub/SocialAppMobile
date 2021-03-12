@@ -1,40 +1,31 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Crear Publicacion</ion-title>
+    <ion-title>modalEditarPublicacion</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-label>{{estado}}</ion-label>
   <ion-item >
-    <ion-label position="floating">¿Que deseas publicar?</ion-label>
+    <ion-label position="floating"></ion-label>
     <ion-textarea (ionChange)="getText($event)" style="border: 5px;"></ion-textarea>
-
-    <div *ngIf="image">
-      
-      <div *ngIf="imagen != ''">
-        <ion-img [src]="imagen"></ion-img>
-      </div>
-
-      <ion-button (click)="SeleccionarFoto()" expand="block">
-        Seleccionar Foto
-      </ion-button>
-    </div>
 
     <div>
       
       <ion-buttons slot="start">
-        <ion-button (click)="publicarModal()" color="success"  >
+        <ion-button (click)="editarModal()" color="success"  >
           <ion-icon name="checkmark-outline"></ion-icon>
-          Publicar 
+          Editar 
         </ion-button>
   
         <ion-button (click)="cancelarModal()" color="danger"  >
           <ion-icon name="close-outline"></ion-icon>
           Cancelar
         </ion-button> 
+
       </ion-buttons>
-    
+   
     </div>
   </ion-item>
+
+
 </ion-content>

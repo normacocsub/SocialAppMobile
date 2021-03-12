@@ -17,6 +17,10 @@ const routes: Routes = [
     path: 'modal-publicacion',
     loadChildren: () => import('./pages/modal-publicacion/modal-publicacion.module').then( m => m.ModalPublicacionPageModule)
   },
+  {
+    path: 'modal-editar-publicacion',
+    loadChildren: () => import('./pages/modal-editar-publicacion/modal-editar-publicacion.module').then( m => m.ModalEditarPublicacionPageModule)
+  },
 ];
 
 @NgModule({

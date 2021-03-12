@@ -5,8 +5,13 @@
       <ion-icon name="person-circle-outline"></ion-icon>
     </ion-chip>
     
-    <ion-label> {{publicacion.nombre}}</ion-label>
+    <ion-label> {{publicacion.nombre}} </ion-label>
     
+    <div class="social-more">
+      <ion-button (click)="lanzarMenu($event)"  fill="clear">
+        <ion-icon class="colorTresPuntitos" slot="icon-only" name="ellipsis-vertical-outline"></ion-icon>
+      </ion-button>
+    </div>
   </ion-card-title>
   
   <ion-card-subtitle class="ion-padding">Hace 1m</ion-card-subtitle>
