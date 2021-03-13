@@ -28,8 +28,10 @@ export class HomePage implements OnInit {
 
     const {data} = await modal.onDidDismiss();
 
+ 
+
     this.publicacionService.insertPublicaciones(data).subscribe(result =>{
-      console.log(result);
+      
     });
   }
 
@@ -43,12 +45,8 @@ export class HomePage implements OnInit {
     await modal.present();
 
     const {data} = await modal.onDidDismiss();
+    this.publicacionService.insertPublicaciones(data).subscribe(result =>{
+      console.log(result);
+    });
   }
-
- 
-
-  
-
-
-  
 }

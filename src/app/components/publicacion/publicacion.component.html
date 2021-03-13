@@ -19,4 +19,8 @@
   <ion-card-content>
     <p>{{publicacion.publicacion}}</p>
   </ion-card-content>
+
+  <div *ngIf="publicacion.urlImg!=''">
+    <ion-img [src]="publicacion.urlImg"></ion-img>
+  </div>
 </ion-card>

@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+
+declare var window: any;
+
 
 @Component({
   selector: 'app-modal-publicacion',
@@ -12,13 +15,15 @@ export class ModalPublicacionPage implements OnInit {
   publicacion: string = '';
   @Input() image: boolean = false;
   imagen: string = '';
-  estado: string = 'a';
+  tempImg: string[] = [];
   constructor(private modalController: ModalController,
-              private photoLibrary: PhotoLibrary) { }
+              private camera: Camera
+              ) { }
 
   ngOnInit() {
   }
 
+  
   cancelarModal(){
     this.modalController.dismiss();
   }
@@ -27,7 +32,8 @@ export class ModalPublicacionPage implements OnInit {
     console.log(this.publicacion);
     this.modalController.dismiss({
       nombre:'Fernando Vega',
-      publicacion: this.publicacion
+      publicacion: this.publicacion,
+      urlImg: this.imagen
     });
   }
 
@@ -36,28 +42,47 @@ export class ModalPublicacionPage implements OnInit {
   }
 
    SeleccionarFoto(){
-    this.photoLibrary.requestAuthorization().then(() => {
-      this.photoLibrary.getLibrary().subscribe({
-        next: library => {
-          library.forEach(function(libraryItem) {
-            console.log(libraryItem.id);          // ID of the photo
-            console.log(libraryItem.photoURL);    // Cross-platform access to photo
-            console.log(libraryItem.thumbnailURL);// Cross-platform access to thumbnail
-            console.log(libraryItem.fileName);
-            console.log(libraryItem.width);
-            console.log(libraryItem.height);
-            console.log(libraryItem.creationDate);
-            console.log(libraryItem.latitude);
-            console.log(libraryItem.longitude);
-            console.log(libraryItem.albumIds);    // array of ids of appropriate AlbumItem, only of includeAlbumsData was used
-          });
-        },
-        error: err => { console.log('could not get photos'); },
-        complete: () => { console.log('done getting photos'); }
-      });
-    })
-    .catch(err => console.log('permissions weren\'t granted'));
+
+
+    const options: CameraOptions = {
+      quality: 60,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      sourceType: this.camera.PictureSourceType.CAMERA
+    }
+
+    this.procesarImagen(options);
+    
+  }
+
+  Gallery(){
+    
+    const options: CameraOptions = {
+      quality: 60,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    }
+
+    this.procesarImagen(options);
+  }
+
+  procesarImagen(options: CameraOptions){
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+      let win: any = window;
+      const img = win.Ionic.WebView.convertFileSrc( imageData );
+      this.imagen = img;
+     }, (err) => {
+      // Handle error
+     });
   }
 }
+
 
 

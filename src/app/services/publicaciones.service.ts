@@ -46,9 +46,9 @@ export class PublicacionesService {
 
   insertPublicaciones(publicacion: Publicacion){
     publicacion.idPublicacion = (this.publicaciones.length + 1).toString();
-    let data = [ publicacion.idPublicacion, publicacion.nombre, publicacion.publicacion ];
+    let data = [ publicacion.idPublicacion, publicacion.nombre, publicacion.publicacion, publicacion.urlImg ];
     this.storag.transaction(tx =>{
-      tx.executeSql('INSERT INTO Publicaciones(idPublicacion,nombre,publicacion) VALUES(?,?,?)', data)
+      tx.executeSql('INSERT INTO Publicaciones(idPublicacion,nombre,publicacion,urlImg) VALUES(?,?,?,?)', data)
     });
 
     this.getPublicaciones(this.storag);
@@ -81,7 +81,7 @@ export class PublicacionesService {
         name: 'data.db',
         location: 'default',    
       }).then((db: SQLiteObject) => {
-        db.executeSql('CREATE TABLE if not exists Publicaciones (idPublicacion varchar(5) primary key,nombre varchar(30), publicacion varchar(500))', [])
+        db.executeSql('CREATE TABLE if not exists Publicaciones (idPublicacion varchar(5) primary key,nombre varchar(30), publicacion varchar(500), urlImg varchar(100))', [])
         .then(() => console.log('Executed SQL'))
         .catch(e => console.log(e));
         
