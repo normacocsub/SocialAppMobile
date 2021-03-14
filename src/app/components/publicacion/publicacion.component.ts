@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Publicacion } from 'src/app/interfaces/interfaces';
 
-import { ActionSheetController, ModalController, ToastController } from '@ionic/angular';
+import { ActionSheetController, IonInput, ModalController, ToastController } from '@ionic/angular';
 import { ModalEditarPublicacionPage } from 'src/app/pages/modal-editar-publicacion/modal-editar-publicacion.page';
 import { PublicacionesService } from 'src/app/services/publicaciones.service';
 import { AlertController } from '@ionic/angular';
+import { VerPublicacionPage } from 'src/app/pages/ver-publicacion/ver-publicacion.page';
 
 @Component({
   selector: 'app-publicacion',
@@ -13,6 +14,9 @@ import { AlertController } from '@ionic/angular';
 })
 export class PublicacionComponent implements OnInit {
   @Input() publicacion: Publicacion;
+  @Input() comentarios: boolean = false;
+  @ViewChild(IonInput) input: IonInput;
+  comentario: string = '';
   
   constructor(private actionSheetController: ActionSheetController,
               private modalController: ModalController,
@@ -22,6 +26,50 @@ export class PublicacionComponent implements OnInit {
 
   ngOnInit() {}
 
+
+  ngAfterViewInit(){
+    
+    if(this.comentarios == true){
+      this.input.value = "";
+    }
+    else{
+      if(this.publicacion.Comentarios.length == 0){
+        this.input.value = "No hay comentarios";
+      }else{
+        this.input.value = this.publicacion.Comentarios[0].comentario;
+      }
+      
+    }
+  }
+
+  comentar(){
+    var comentario = {
+      idComentario: (this.publicacion.Comentarios.length + 1)+'',
+      comentario: this.comentario,
+      idPublicacion: this.publicacion.idPublicacion
+    }
+    this.publicacion.Comentarios.unshift(comentario);
+    this.PublicacionService.publicarComentario(this.publicacion).subscribe(result => {
+      this.input.value = "";
+    });
+  }
+
+  getTextComentario(event){
+    this.comentario = event.detail.value;
+  }
+
+  async verPublicacion(){
+    const modal = await this.modalController.create({
+      component: VerPublicacionPage,
+      componentProps: {
+        publicacion: this.publicacion
+      }
+    });
+
+    await modal.present();
+
+    const {data} = await modal.onDidDismiss();
+  }  
   
   async editarPublicacion(){
     const modal = await this.modalController.create({

@@ -20,7 +20,11 @@ const routes: Routes = [
   {
     path: 'modal-editar-publicacion',
     loadChildren: () => import('./pages/modal-editar-publicacion/modal-editar-publicacion.module').then( m => m.ModalEditarPublicacionPageModule)
+  },  {
+    path: 'ver-publicacion',
+    loadChildren: () => import('./pages/ver-publicacion/ver-publicacion.module').then( m => m.VerPublicacionPageModule)
   },
+
 ];
 
 @NgModule({
