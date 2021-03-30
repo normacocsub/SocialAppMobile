@@ -49,4 +49,5 @@ export class HomePage implements OnInit {
       console.log(result);
     });
   }
+
 }

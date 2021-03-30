@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'tabs',
     pathMatch: 'full'
   },
   {
@@ -20,9 +20,22 @@ const routes: Routes = [
   {
     path: 'modal-editar-publicacion',
     loadChildren: () => import('./pages/modal-editar-publicacion/modal-editar-publicacion.module').then( m => m.ModalEditarPublicacionPageModule)
-  },  {
+  },
+  {
     path: 'ver-publicacion',
     loadChildren: () => import('./pages/ver-publicacion/ver-publicacion.module').then( m => m.VerPublicacionPageModule)
+  },
+  {
+    path: 'consultar-publicacion',
+    loadChildren: () => import('./pages/consultar-publicacion/consultar-publicacion.module').then( m => m.ConsultarPublicacionPageModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+  {
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
   },
 
 ];
